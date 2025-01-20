@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -24,8 +26,21 @@ export class DogsController {
   }
 
   @Get()
-  async findAll(): Promise<Dog[]> {
-    return this.dogsService.findAll();
+  async findAll() {
+    try {
+      return this.dogsService.findAll();
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'This is a custom error message',
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: error,
+        },
+      );
+    }
   }
 
   @Get('breed')
