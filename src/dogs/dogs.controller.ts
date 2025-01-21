@@ -6,8 +6,11 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseBoolPipe,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { UpdateDogBreed } from './dto/update-dog.dto';
@@ -48,7 +51,15 @@ export class DogsController {
   }
 
   @Get('/breed/:id')
-  findOneBreedById(@Param('id') id: string) {
+  findOneBreedById(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+    @Query('showNav') showNav?: string,
+  ) {
+    console.log(typeof showNav);
     return { id };
   }
 
