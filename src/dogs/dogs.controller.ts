@@ -12,7 +12,6 @@ import {
 import { CreateDogDto } from './dto/create-dog.dto';
 import { UpdateDogBreed } from './dto/update-dog.dto';
 import { DogsService } from './dogs.service';
-import { Dog } from './interfaces/dogs.interface';
 
 @Controller('dogs')
 export class DogsController {
